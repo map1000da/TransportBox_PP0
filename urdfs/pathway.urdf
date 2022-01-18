@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="box">
+  <!-- Colors -->
+  <material name="black">
+      <color rgba="0 0 0 1"/>
+  </material>
+
+  <link name="link_name">         <!--一つの部分-->
+    <visual>                      <!--その部分の表示-->
+      <geometry>
+        <box size="0.1 4.0 0.5"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>                   <!--その部分の衝突データ-->
+      <geometry>
+        <box size="0.1 4.0 0.5"/>
+      </geometry>
+    </collision>
+    <inertial>                     <!--その部分の慣性データ-->
+            <mass value="20"/>
+            <inertia ixx="0.2" ixy="0" ixz="0" iyy="0.2" iyz="0.0" izz="0.2"/> <!--慣性モーメント(どのくらいが良いかよくわからない)-->
+        </inertial>
+  </link>
+
+</robot>

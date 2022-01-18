@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<robot name="car">
+    <!-- Colors --> 
+    <material name="black"> 
+        <color rgba="0 0 0 1"/>
+    </material>
+    <material name="blue"> 
+        <color rgba="0.6 0.7 0.8 1"/>
+    </material>
+
+
+    <!-- Base Frame of Car --> 
+    <link name="base_link">
+        <visual> 
+            <geometry> 
+                <cylinder length="0.02" radius="0.05"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision> 
+             <geometry> 
+                <cylinder length="0.02" radius="0.05"/>
+            </geometry>
+        </collision> 
+        <inertial> 
+            <mass value="0.001"/>
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0.0" izz="0.2"/>
+        </inertial> 
+    </link> 
+
+
+
+    <!-- Left Front Wheel -->
+    <link name="left_front_wheel">
+        <visual> 
+            <geometry> 
+                <cylinder length="0.005" radius="0.016"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0"/>
+            <material name="black"/>
+        </visual>
+        <collision> 
+             <geometry> 
+                <cylinder length="0.005" radius="0.016"/>
+            </geometry>
+            <origin rpy="1.57075 1.57075 0"/>
+        </collision> 
+        <inertial> 
+            <origin rpy="1.57075 1.57075 0"/>
+            <mass value="0.05"/>
+            <inertia ixx="0.04" ixy="0" ixz="0" iyy="0.04" iyz="0.0" izz="0.02"/>
+        </inertial> 
+        <contact>
+            <lateral_friction value="1"/>
+            <rolling_friction value="0"/>
+            <spinning_friction value="0"/>
+        </contact>
+    </link> 
+    <joint name="left_hinge_to_left_front_wheel" type="continuous">
+        <parent link="left_hinge"/>
+        <child link="left_front_wheel"/> 
+        <axis xyz="0 1 0"/>
+        <origin xyz="0 0.045 0"/>
+    </joint>
+    <!-- Left Front Wheel - Hinge -->
+    <link name="left_hinge">
+        <visual> 
+            <geometry> 
+                <box size="0.05 0.003 0.003"/>
+            </geometry>
+            <origin xyz="0 0.025 0 " rpy="0 0 1.57075"/>
+            <material name="black"/>
+        </visual>
+        <inertial> 
+            <origin rpy="0 0 1.57075"/>
+            <mass value="0.0001"/>
+            <inertia ixx="5E-6" ixy="0" ixz="0" iyy="5E-6" iyz="0" izz="5E-6"/>
+        </inertial> 
+    </link> 
+    <joint name="base_to_left_hinge" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_hinge"/> 
+        <origin xyz="0.0 0.0 0"/>
+        <limit effort="10000" lower="0" upper="0" velocity="6"/>
+    </joint>
+    <!-- Right Front Wheel -->
+    <link name="right_front_wheel">
+        <visual> 
+            <geometry> 
+                <cylinder length="0.005" radius="0.016"/>
+            </geometry>
+            <origin rpy="-1.57075 -1.57075 0"/>
+            <material name="black"/>
+        </visual>
+        <collision> 
+             <geometry> 
+                <cylinder length="0.005" radius="0.016"/>
+            </geometry>
+            <origin rpy="-1.57075 -1.57075 0"/>
+        </collision> 
+        <inertial> 
+            <origin rpy="-1.57075 -1.57075 0"/>
+            <mass value="0.05"/>
+            <inertia ixx="0.04" ixy="0" ixz="0" iyy="0.04" iyz="0.0" izz="0.02"/>
+        </inertial>
+        <contact>
+            <lateral_friction value="1"/>
+            <rolling_friction value="0.0001"/>
+            <spinning_friction value="0.0001"/>
+        </contact> 
+    </link> 
+    <joint name="right_hinge_to_right_front_wheel" type="continuous">
+        <parent link="right_hinge"/>
+        <child link="right_front_wheel"/> 
+        <axis xyz="0 1 0"/>
+        <origin xyz="0 -0.045 0"/>
+    </joint>
+    <!-- Right Front Wheel - Hinge -->
+    <link name="right_hinge">
+        <visual> 
+            <geometry> 
+                <box size="0.05 0.003 0.003"/>
+            </geometry>
+            <origin xyz="0 -0.025 0 " rpy="0 0 -1.57075"/>
+            <material name="black"/>
+        </visual>
+        <inertial> 
+            <origin rpy="0 0 -1.57075"/>
+            <mass value="0.0001"/>
+            <inertia ixx="5E-6" ixy="0" ixz="0" iyy="5E-6" iyz="0" izz="5E-6"/>
+        </inertial> 
+    </link> 
+    <joint name="base_to_right_hinge" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_hinge"/>
+        <origin xyz="0.0 0 0"/>
+        <limit effort="10000" lower="0" upper="0" velocity="6"/>
+    </joint>
+
+
+    <link name="koro_front">
+        <visual> 
+            <geometry> 
+                <sphere radius="0.006"/>
+            </geometry>
+            <origin xyz="0.04 0 -0.01"/>
+            <material name="black"/>
+        </visual>
+        <collision> 
+            <geometry> 
+                <sphere radius="0.006"/>
+            </geometry>
+            <origin xyz="0.04 0 -0.01"/>
+        </collision> 
+        <inertial> 
+            <mass value="0.0001"/>
+            <inertia ixx="0.04" ixy="0" ixz="0" iyy="0.04" iyz="0.0" izz="0.02"/>
+        </inertial> 
+        <contact>
+            <lateral_friction value="0"/>
+            <rolling_friction value="0"/>
+            <spinning_friction value="0"/>
+        </contact>
+    </link>
+    <joint name="base_link_to_koro_front" type="fixed">
+        <parent link="base_link"/>
+        <child link="koro_front"/>
+        <origin xyz="0.0 0 0"/>
+    </joint>
+    <link name="koro_back">
+        <visual> 
+            <geometry> 
+                <sphere radius="0.006"/>
+            </geometry>
+            <origin xyz="-0.04 0 -0.01"/>
+            <material name="black"/>
+        </visual>
+        <collision> 
+            <geometry> 
+                <sphere radius="0.006"/>
+            </geometry>
+            <origin xyz="-0.04 0 -0.01"/>
+        </collision> 
+        <inertial> 
+            <mass value="0.0001"/>
+            <inertia ixx="0.04" ixy="0" ixz="0" iyy="0.04" iyz="0.0" izz="0.02"/>
+        </inertial> 
+        <contact>
+            <lateral_friction value="0"/>
+            <rolling_friction value="0"/>
+            <spinning_friction value="0"/>
+        </contact>
+    </link>
+    <joint name="base_link_to_koro_back" type="fixed">
+        <parent link="base_link"/>
+        <child link="koro_back"/>
+        <origin xyz="0.0 0 0"/>
+    </joint>
+</robot>
